@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comparing Cars by Country</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+	<style>
+    	text { 
+			font-family: Arial; 
+			font-size: 15px;
+		}
+		.axis path, .axis line {
+			fill: none;
+			stroke: black;
+			shape-rendering: crispEdges;
+		}
+		.tick text {
+			fill: black;
+			font-size: 11px;
+		}
+
+		rect {
+			stroke: white;
+		}
+	</style>
+</head>
+
+<body>
+
+	<svg id="main" width="600" height="600" style="border: solid 1px black">
+		<text id='label' x='20' y='20'>Selected Attribute by Country</text>
+		<g transform="translate(20,40)"></g>
+	</svg>
+
+</body>
+
+</html
