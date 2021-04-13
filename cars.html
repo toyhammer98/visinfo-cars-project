@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Comparing Cars by Country</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<style>
     	text { 
 			font-family: Arial; 
@@ -31,6 +31,90 @@
 		<g transform="translate(20,40)"></g>
 	</svg>
 
+	<script>
+		var CHART_WIDTH = 400;
+		var CHART_HEIGHT = 200;
+		var MAX_BAR_HEIGHT = 100;
+		var mpg = [];
+		var cylinders = [];
+		var displacemenet = [];
+		var horsepower = [];
+		var weight = [];
+		var acceleration = [];
+		var model = [];
+		var origin = [];
+		//replace MPG next line with relevant variable for selection later
+
+
+
+		function drawScatterPlot() 
+		{
+			var maxValue = d3.max(mpg);
+			var xScale = d3.scale.linear();
+			var yScale = d3.scale.linear();
+			xScale.domain([70, 82]).range([0, CHART_WIDTH]);
+			//replace range inside yscale domain next line w/relevant variable for selection later
+			yScale.domain([0, 50]).range([CHART_HEIGHT, 0]);
+			
+			var g = d3.select('svg').select('g');
+
+
+			// create axes
+			var xAxis = d3.svg.axis()
+    			.scale(xScale)
+    			.orient('bottom')
+    			.tickFormat(function(d) { return "" + d; })
+
+    			var yAxis = d3.svg.axis()
+    				.scale(yScale)
+    				.orient('left');
+
+
+    			g.append('g')
+    				.attr('class', 'axis')
+    				.attr('transform', 'translate(0,' + CHART_HEIGHT + ')')
+    				.call(xAxis);
+
+    			g.append('g')
+    				.attr('class', 'axis')
+    				.call(yAxis);
+			// create circles for my data points
+    			var circles = g.selectAll('circle')
+    				.data(mpg)
+    				.enter()
+    				.append('circle')
+			//we need to make a way to make the different countries different colors
+			circles
+    				.style('fill', 'steelblue')
+    				.attr('r', 5)
+    				.attr('cx', function(d) { return xScale(d.model) })
+					//replace mpg w/ selection variable
+    				.attr('cy', function(d) { return yScale(d.milespergallon)});
+
+		}
+		
+		d3.csv('cars.csv', function(data) 
+		{
+			for (var i=0; i<data.length; i++)
+			{
+				var record = data[i];
+				
+				// loop through model years
+				for (var y=70; y<=82; y++) 
+				{
+					var value = record[y];
+					var object = {
+						model: y,
+						milespergallon: +value
+					};
+					//replace w/relevant selecty variable
+					mpg.push(object);
+				}
+			}
+			drawScatterPlot();
+
+		});
+	</script>
 </body>
 
 </html
