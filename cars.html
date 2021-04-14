@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Comparing Cars by Country</title>
-	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 	<style>
     	text { 
 			font-family: Arial; 
@@ -26,95 +26,100 @@
 
 <body>
 
-	<svg id="main" width="600" height="600" style="border: solid 1px black">
-		<text id='label' x='20' y='20'>Selected Attribute by Country</text>
-		<g transform="translate(20,40)"></g>
+	<svg width="800" height="600">
+		<g id="scatterplot" transform="translate(40,30)">
+			<text>MPG of cars by model year
+
+
+		</g>
+
 	</svg>
 
-	<script>
-		var CHART_WIDTH = 400;
-		var CHART_HEIGHT = 200;
-		var MAX_BAR_HEIGHT = 100;
-		var mpg = [];
-		var cylinders = [];
-		var displacemenet = [];
-		var horsepower = [];
-		var weight = [];
-		var acceleration = [];
-		var model = [];
-		var origin = [];
+<script>
+		var cars = [];
 		//replace MPG next line with relevant variable for selection later
 
 
 
 		function drawScatterPlot() 
 		{
-			var maxValue = d3.max(mpg);
+			var CHART_WIDTH = 250;
+			var CHART_HEIGHT = 250;
+			var MAX_BAR_HEIGHT = 100;
+			
 			var xScale = d3.scale.linear();
 			var yScale = d3.scale.linear();
-			xScale.domain([70, 82]).range([0, CHART_WIDTH]);
-			//replace range inside yscale domain next line w/relevant variable for selection later
-			yScale.domain([0, 50]).range([CHART_HEIGHT, 0]);
 			
-			var g = d3.select('svg').select('g');
+			var maxYear = d3.max(cars, function(d) { return d.Model; })
+			var minYear = d3.min(cars, function(d) { return d.Model; })
+			//replace all the MPG junk with something to change variable when we get to that
+			var maxMPG = d3.max(cars, function(d) { return d.MPG; });
+			var minMPG = d3.min(cars, function(d) { return d.MPG; })
+			xScale
+				.domain([minYear, maxYear])
+				.range([0, CHART_WIDTH])
+				.nice();
+			
+			yScale
+				.domain([minMPG, maxMPG])
+				.range([CHART_HEIGHT, 0]);
+
+			
+			
+			var g = d3.select('svg').select('#scatterplot');
 
 
 			// create axes
 			var xAxis = d3.svg.axis()
-    			.scale(xScale)
-    			.orient('bottom')
-    			.tickFormat(function(d) { return "" + d; })
+				.scale(xScale)
+				.orient('bottom').ticks(5);
+				//.tickFormat(function(d) { return "" + d; })
 
-    			var yAxis = d3.svg.axis()
-    				.scale(yScale)
-    				.orient('left');
+			var yAxis = d3.svg.axis()
+				.scale(yScale)
+				.orient('left');
 
 
-    			g.append('g')
-    				.attr('class', 'axis')
-    				.attr('transform', 'translate(0,' + CHART_HEIGHT + ')')
-    				.call(xAxis);
+			g.append('text')
+				.attr('y', CHART_HEIGHT + 30)
+				.attr('x', CHART_WIDTH/2 - 50)
+				.html('GDP per capita')
+		
+			g.append('text')
+				.attr('y', 0)
+				.attr('x', 0)
+				.attr('transform', 'translate(-25,150),rotate(-90)')
+				.html('Life Expectancy')
 
-    			g.append('g')
-    				.attr('class', 'axis')
-    				.call(yAxis);
+
+			g.append('g')
+				.attr('class', 'axis')
+				.attr('transform', 'translate(0,' + CHART_HEIGHT + ')')
+				.call(xAxis);
+
+			g.append('g')
+				.attr('class', 'axis')
+				.call(yAxis);
 			// create circles for my data points
-    			var circles = g.selectAll('circle')
-    				.data(mpg)
-    				.enter()
-    				.append('circle')
-			//we need to make a way to make the different countries different colors
+			var circles = g.selectAll('circle')
+				.data(cars)
+				.enter()
+				.append('circle')
+
 			circles
-    				.style('fill', 'steelblue')
-    				.attr('r', 5)
-    				.attr('cx', function(d) { return xScale(d.model) })
-					//replace mpg w/ selection variable
-    				.attr('cy', function(d) { return yScale(d.milespergallon)});
+				.style('fill', 'steelblue')
+				.attr('r', 5)
+				.attr('cx', function(d) { return xScale(d.model) })
+				.attr('cy', function(d) { return yScale(d.MPG) } );
 
 		}
 		
-		d3.csv('cars.csv', function(data) 
+		d3.csv('countries.csv', function(data) 
 		{
-			for (var i=0; i<data.length; i++)
-			{
-				var record = data[i];
-				
-				// loop through model years
-				for (var y=70; y<=82; y++) 
-				{
-					var value = record[y];
-					var object = {
-						model: y,
-						milespergallon: +value
-					};
-					//replace w/relevant selecty variable
-					mpg.push(object);
-				}
-			}
+			cars = data;
 			drawScatterPlot();
-
 		});
-	</script>
+</script>
 </body>
 
-</html
+</html>
