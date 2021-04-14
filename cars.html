@@ -50,11 +50,11 @@
 			var xScale = d3.scale.linear();
 			var yScale = d3.scale.linear();
 			
-			var maxYear = d3.max(cars, function(d) { return d.Model; })
-			var minYear = d3.min(cars, function(d) { return d.Model; })
+			var maxYear = d3.max(cars, function(d) { return d.Model; });
+			var minYear = d3.min(cars, function(d) { return d.Model; });
 			//replace all the MPG junk with something to change variable when we get to that
 			var maxMPG = d3.max(cars, function(d) { return d.MPG; });
-			var minMPG = d3.min(cars, function(d) { return d.MPG; })
+			var minMPG = d3.min(cars, function(d) { return d.MPG; });
 			xScale
 				.domain([minYear, maxYear])
 				.range([0, CHART_WIDTH])
@@ -83,13 +83,13 @@
 			g.append('text')
 				.attr('y', CHART_HEIGHT + 30)
 				.attr('x', CHART_WIDTH/2 - 50)
-				.html('GDP per capita')
+				.html('GDP per capita');
 		
 			g.append('text')
 				.attr('y', 0)
 				.attr('x', 0)
 				.attr('transform', 'translate(-25,150),rotate(-90)')
-				.html('Life Expectancy')
+				.html('Life Expectancy');
 
 
 			g.append('g')
@@ -104,7 +104,7 @@
 			var circles = g.selectAll('circle')
 				.data(cars)
 				.enter()
-				.append('circle')
+				.append('circle');
 
 			circles
 				.style('fill', 'steelblue')
