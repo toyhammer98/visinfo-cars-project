@@ -28,7 +28,7 @@
 
 	<svg width="800" height="600">
 		<g id="scatterplot" transform="translate(40,30)">
-			<text>MPG of cars by model year
+			<text>MPG of cars by model year</text>
 
 
 		</g>
@@ -50,11 +50,11 @@
 			var xScale = d3.scale.linear();
 			var yScale = d3.scale.linear();
 			
-			var maxYear = d3.max(cars, function(d) { return d.Model; });
-			var minYear = d3.min(cars, function(d) { return d.Model; });
+			var maxYear = d3.max(cars, function(d) { return +d.Model; });
+			var minYear = d3.min(cars, function(d) { return +d.Model; });
 			//replace all the MPG junk with something to change variable when we get to that
-			var maxMPG = d3.max(cars, function(d) { return d.MPG; });
-			var minMPG = d3.min(cars, function(d) { return d.MPG; });
+			var maxMPG = d3.max(cars, function(d) { return +d.MPG; });
+			var minMPG = d3.min(cars, function(d) { return +d.MPG; });
 			xScale
 				.domain([minYear, maxYear])
 				.range([0, CHART_WIDTH])
@@ -83,13 +83,13 @@
 			g.append('text')
 				.attr('y', CHART_HEIGHT + 30)
 				.attr('x', CHART_WIDTH/2 - 50)
-				.html('GDP per capita');
+				.html('Model Year');
 		
 			g.append('text')
 				.attr('y', 0)
 				.attr('x', 0)
 				.attr('transform', 'translate(-25,150),rotate(-90)')
-				.html('Life Expectancy');
+				.html('Miles Per Gallon');
 
 
 			g.append('g')
@@ -109,12 +109,18 @@
 			circles
 				.style('fill', 'steelblue')
 				.attr('r', 5)
-				.attr('cx', function(d) { return xScale(d.model) })
-				.attr('cy', function(d) { return yScale(d.MPG) } );
+				.attr('cx', function (d) {
+					var x = d.Model;
+					return xScale(x)
+				})
+				.attr('cy', function (d) {
+					var y = d.MPG;
+					return yScale(y)
+				});
 
 		}
 		
-		d3.csv('countries.csv', function(data) 
+		d3.csv('cars.csv', function(data) 
 		{
 			cars = data;
 			drawScatterPlot();
