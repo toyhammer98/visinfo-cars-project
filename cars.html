@@ -25,7 +25,15 @@
 </head>
 
 <body>
-
+	<select name="options" id="options">
+		<option value="MPG">Miles per Gallon</option>
+		<option value="Cylinders">Number of Cylinders</option>
+		<option value="Displacement">Engine Displacement (cm^3)</option>
+		<option value="Horsepower">Horsepower</option>
+		<option value="Weight">Weight (lbs.)</option>
+		<option value="Acceleration">Seconds to Reach 60 MPH</option>
+	</select>
+	<br>
 	<svg width="800" height="600">
 		<g id="scatterplot" transform="translate(40,30)">
 			<text>MPG of cars by model year</text>
@@ -35,37 +43,42 @@
 
 	</svg>
 
-<script>
+	<script>
 		var cars = [];
 		//replace MPG next line with relevant variable for selection later
 
+		d3.select("#options").on('change', function () {
+			var newYAxis = d3.select(this).property('value')
+			console.log(newYAxis)
+			var g = d3.select('svg').select('#scatterplot');
+			g.selectAll('*').remove()
+			drawScatterPlot(newYAxis)
+        })
 
+		function drawScatterPlot(ycolumn) {
+			var CHART_WIDTH = 500;
+			var CHART_HEIGHT = 500;
+			var MAX_BAR_HEIGHT = 200;
 
-		function drawScatterPlot() 
-		{
-			var CHART_WIDTH = 250;
-			var CHART_HEIGHT = 250;
-			var MAX_BAR_HEIGHT = 100;
-			
 			var xScale = d3.scale.linear();
 			var yScale = d3.scale.linear();
 			
-			var maxYear = d3.max(cars, function(d) { return +d.Model; });
-			var minYear = d3.min(cars, function(d) { return +d.Model; });
+			var maxYear = d3.max(cars, function (d) { return +d.Model; });
+			var minYear = d3.min(cars, function (d) { return +d.Model; });
 			//replace all the MPG junk with something to change variable when we get to that
-			var maxMPG = d3.max(cars, function(d) { return +d.MPG; });
-			var minMPG = d3.min(cars, function(d) { return +d.MPG; });
+			var maxMPG = d3.max(cars, function (d) { return +d[ycolumn]; });
+			var minMPG = d3.min(cars, function (d) { return +d[ycolumn]; });
 			xScale
 				.domain([minYear, maxYear])
 				.range([0, CHART_WIDTH])
 				.nice();
-			
+
 			yScale
 				.domain([minMPG, maxMPG])
 				.range([CHART_HEIGHT, 0]);
 
-			
-			
+
+
 			var g = d3.select('svg').select('#scatterplot');
 
 
@@ -73,7 +86,7 @@
 			var xAxis = d3.svg.axis()
 				.scale(xScale)
 				.orient('bottom').ticks(5);
-				//.tickFormat(function(d) { return "" + d; })
+			//.tickFormat(function(d) { return "" + d; })
 
 			var yAxis = d3.svg.axis()
 				.scale(yScale)
@@ -82,9 +95,9 @@
 
 			g.append('text')
 				.attr('y', CHART_HEIGHT + 30)
-				.attr('x', CHART_WIDTH/2 - 50)
+				.attr('x', CHART_WIDTH / 2 - 50)
 				.html('Model Year');
-		
+
 			g.append('text')
 				.attr('y', 0)
 				.attr('x', 0)
@@ -114,18 +127,17 @@
 					return xScale(x)
 				})
 				.attr('cy', function (d) {
-					var y = d.MPG;
+					var y = +d[ycolumn];
 					return yScale(y)
 				});
 
 		}
-		
-		d3.csv('cars.csv', function(data) 
-		{
+
+		d3.csv('cars.csv', function (data) {
 			cars = data;
-			drawScatterPlot();
+			drawScatterPlot("MPG");
 		});
-</script>
+	</script>
 </body>
 
 </html>
