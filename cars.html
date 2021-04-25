@@ -3,6 +3,7 @@
 <head>
 	<title>Comparing Cars by Country</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
 	<style>
     	text { 
 			font-family: Arial; 
@@ -35,7 +36,7 @@
 	</select>
 	<br>
 	<svg width="800" height="600">
-		<g id="scatterplot" transform="translate(40,30)">
+		<g id="scatterplot" transform="translate(80,70)">
 
 
 		</g>
@@ -97,6 +98,11 @@
 				.attr('x', CHART_WIDTH / 2 - 50)
 				.html('Model Year (19XX)');
 
+			g.append('text')
+				.attr('y', 60)
+				.attr('x', CHART_HEIGHT / 2 - 30)
+				.attr('transform', 'rotate(90)')
+				.html(ycolumn);
 
 			g.append('g')
 				.attr('class', 'axis')
@@ -106,6 +112,19 @@
 			g.append('g')
 				.attr('class', 'axis')
 				.call(yAxis);
+
+			var color = d3.scale.ordinal()
+    			.domain(["US", "Europe", "Japan"])
+    			.range(["#4682B4","#2E8B57","#DC143C"]);
+
+			var legend = d3.legend.color()
+			.labelFormat(d3.format(".0f"))
+        		.scale(color);
+
+			g.append('g')
+				.attr("transform", "translate(570, 60)")
+        			.call(legend);
+
 			// create circles for my data points
 			var circles = g.selectAll('circle')
 				.data(cars)
@@ -113,7 +132,10 @@
 				.append('circle');
 
 			circles
-				.style('fill', 'steelblue')
+				.style('fill', function (d) {
+					var c = d.Origin;
+					return color(c)
+				})
 				.attr('r', 5)
 				.attr('cx', function (d) {
 					var x = d.Model;
