@@ -13,36 +13,36 @@
  what country makes the best cars and which car is fastest or the most fuel-efficient. We settled on comparing cars by country to see what <br />
  country had the fastest or most fuel-efficient cars.</p>
  <p>Once we settled on what to visualize we had to determine how to visualize it. Again, we bounced ideas back and forth in a brainstorming <br />
- session and came up with a wide variety of ideas for visualizations and interactions. Our first idea was a verticle bargraph with categories <br />
+ session and came up with a wide variety of ideas for visualizations and interactions. Our first idea was a vertical bar graph with categories <br />
  on the x-axis and whatever attribute we wanted to measure on the y-axis which would split the bars into individual items when viewing within a <br />
  category. The next idea mentioned was a map with colors representing speed and efficiency that when you hover over a particular country, a table <br />
- pops up showing cars from that country and their data. We started to persue this idea and quickly discovered that only three countries were represented <br />
- in the dataset so there was likely a better way to express this data. We came back to the bar chart directon with an idea of either a stacked bar chart <br />
+ pops up showing cars from that country and their data. We started to pursue this idea and quickly discovered that only three countries were represented <br />
+ in the dataset so there was likely a better way to express this data. We came back to the bar chart direction with an idea of either a stacked bar chart <br />
  measuring speed and efficiency for each country or one with one bar per country where you can change what it is showing. This idea was the closest we <br />
  had so far so we decided to visualize it on paper as shown below.</p>
  <img src="https://toyhammer98.github.io/visinfo-cars-project/brainstorming.jpg" alt="Brainstorming" width="500" height="400">
  <p>The idea of changing what the bars were displaying lead us to the idea of a scatter plot with the year of the car on the x-axis and interactive variables <br />
- on the y-axis. We also came up with color coding the points for the three different countries. This idea became our interactive visualization:</p>
+ on the y-axis. We also came up with color-coding the points for the three different countries. This idea became our interactive visualization:</p>
  <img src="https://toyhammer98.github.io/visinfo-cars-project/FinalVisualizationEx.PNG" alt="Final Design Idea" width="500" height="400">
- <p>The variables in our dataset include name of the car, miles per gallon (MPG), Cylinders, Displacement, Horsepower, Weight, Acceleration, Model (year), and <br />
- Origin (Country). Most of these are quantitative variables that can be used in calculations. Model year doesn't fit in the same group with the other <br />
- quantitative variables which is how we knew it belogned on the x-axis as a static variable. Country, and car name were the only qualitative variables so <br />
- it became clear that car name should be represented as individual points on the scatter plot and color would best represent the country of origin. <br />
- We discovered that Trying to answer questions such as what car is the fastest or most efficient is actually extremely complex and invloves factors <br />
+ <p>The variables in our dataset include the name of the car, miles per gallon (MPG), Cylinders, Displacement, Horsepower, Weight, Acceleration, Model (year), <br />
+ and Origin (Country). Most of these are quantitative variables that can be used in calculations. Model year doesn't fit in the same group with the other <br />
+ quantitative variables which is how we knew it belonged on the x-axis as a static variable. Country and car name were the only qualitative variables so <br />
+ it became clear that car names should be represented as individual points on the scatter plot and color would best represent the country of origin. <br />
+ We discovered that trying to answer questions such as what car is the fastest or most efficient is actually extremely complex and involves factors <br />
  that are not included in the dataset such as wind speed, fuel type, type of tires, air intake, the list goes on and on. Because there is no possible <br />
  way to answer those questions with the dataset we decided the best course of action to take would be to allow the viewer to make their own conclusions <br />
- about the data by providing a drop down list of the qantitative variables which controls what variable displays on the y-axis. This allows the viewer <br />
+ about the data by providing a drop-down list of the quantitative variables which controls what variable displays on the y-axis. This allows the viewer <br />
  to answer several questions at once per dynamic variable including what car is highest and lowest for that variable, what country seems to focus on that <br />
  variable, and how has that variable changed over time.</p>
  <img src="https://toyhammer98.github.io/visinfo-cars-project/dropdown.png" alt="y axis" width="500" height="400"> 
  <p>There are just over 400 cars listed in the dataset so in order for viewers to be able to see exactly what car is relative to what point, we added a hover <br />
  interaction that displays the car name relative to its point on the scatterplot. The color combination for the countries variable was very intentional because <br />
- we wanted even a color blind person to be able interpret the graph. We made the US blue so it would be the most visable and distinguishable because we assume <br />
+ we wanted even a color-blind person to be able to interpret the graph. We made the US blue so it would be the most visible and distinguishable because we assume <br />
  most viewers would be from the US and would want to know how the US compares to Europe and Japan, its top competitors. We struggled a bit to pick the other <br />
- two colors trying hard to work around color blind issues. We came to an agreement on using hue and luminance variation with the dark and light green next to <br />
- the blue. It is distinguishable enough that even someone who can't percieve the color green can understand and see the points seperatly.</p>
+ two colors trying hard to work around color-blind issues. We came to an agreement on using hue and luminance variation with the dark and light green next to <br />
+ the blue. It is distinguishable enough that even someone who can't perceive the color green can understand and see the points separately.</p>
  <p>Getting the maximum and minimum to change with the switching of y-axis variables took some work but was a crucial point in our visualization. We realized <br />
- that if our visulization relied on people making their own conclusions about the data, someone that had very little understanding of cars and how they work <br />
+ that if our visualization relied on people making their own conclusions about the data, someone that had very little understanding of cars and how they work <br />
  should even be able to understand what these graphs represent. We left the y-axis title the same as how the dataset has it but made the dropdown list titles <br />
  more descriptive. For example, acceleration is the variable name in the dataset and is what displays as the y-axis title. The dropdown though shows it as <br />
  Seconds to Reach 60 MPH.</p>
@@ -76,7 +76,7 @@
   </tr>
  </table>
  <p>We wanted to know which country generally was making the "best" cars. To be the "best", a country would have to match each variable in terms of if having a high number <br />
- is a good thing for that particular variable. To form an opinion with the visualizaitons, our group first went through each y-axis variable and determined if each country <br />
+ is a good thing for that particular variable. To form an opinion with the visualizaations, our group first went through each y-axis variable and determined if each country <br />
  was high medium or low for what that variable required to be considered good. In each variable's case except for weight, a high number meant the car was better. Here is <br />
  an example of how we determined if a country was high, medium, or low.</p>
  <img src="https://toyhammer98.github.io/visinfo-cars-project/RatingEx.png" alt="weight" width="500" height="400">
